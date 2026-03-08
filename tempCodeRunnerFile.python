@@ -1,0 +1,175 @@
+from reportlab.lib.pagesizes import letter
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, HRFlowable
+from reportlab.lib.enums import TA_CENTER, TA_LEFT
+from reportlab.lib import colors
+
+# Create the PDF document
+pdf_filename = "Saurabh_Yadav_Resume_Improved.pdf"
+doc = SimpleDocTemplate(pdf_filename, pagesize=letter,
+                        rightMargin=50, leftMargin=50,
+                        topMargin=50, bottomMargin=50)
+
+styles = getSampleStyleSheet()
+story = []
+
+# Custom Styles
+title_style = ParagraphStyle(
+    name='Title',
+    parent=styles['Heading1'],
+    alignment=TA_CENTER,
+    fontSize=20,
+    spaceAfter=10
+)
+
+contact_style = ParagraphStyle(
+    name='Contact',
+    parent=styles['Normal'],
+    alignment=TA_CENTER,
+    fontSize=10,
+    textColor=colors.black,
+    spaceAfter=20
+)
+
+section_header_style = ParagraphStyle(
+    name='SectionHeader',
+    parent=styles['Heading2'],
+    fontSize=12,
+    spaceBefore=10,
+    spaceAfter=5,
+    textColor=colors.darkblue,
+    borderPadding=0,
+)
+
+job_title_style = ParagraphStyle(
+    name='JobTitle',
+    parent=styles['Normal'],
+    fontSize=11,
+    fontName='Helvetica-Bold',
+    spaceAfter=2
+)
+
+company_date_style = ParagraphStyle(
+    name='CompanyDate',
+    parent=styles['Normal'],
+    fontSize=11,
+    fontName='Helvetica-Oblique',
+    spaceAfter=5
+)
+
+bullet_style = ParagraphStyle(
+    name='Bullet',
+    parent=styles['Normal'],
+    fontSize=10,
+    leftIndent=15,
+    bulletIndent=5,
+    spaceAfter=3,
+    leading=14
+)
+
+# --- Content ---
+
+# Header
+story.append(Paragraph("SAURABH YADAV", title_style))
+contact_info = "9175144891 | saurabhyadav29042002@gmail.com | linkedin.com/in/saurabh-yadav91 | github.com/Saurabh-yadav02"
+story.append(Paragraph(contact_info, contact_style))
+story.append(HRFlowable(width="100%", thickness=1, color=colors.black))
+story.append(Spacer(1, 10))
+
+# Summary
+story.append(Paragraph("SUMMARY", section_header_style))
+story.append(HRFlowable(width="100%", thickness=0.5, color=colors.grey))
+story.append(Spacer(1, 5))
+summary_text = ("Enthusiastic and detail-oriented Full Stack Web Developer with hands-on experience in the MERN stack "
+                "(MongoDB, Express.js, React.js, Node.js). Proven track record of building scalable web applications "
+                "and optimizing backend performance during a 6-month internship. Passionate about developing "
+                "user-centric solutions and continuous learning.")
+story.append(Paragraph(summary_text, styles['Normal']))
+
+# Experience
+story.append(Spacer(1, 10))
+story.append(Paragraph("EXPERIENCE", section_header_style))
+story.append(HRFlowable(width="100%", thickness=0.5, color=colors.grey))
+story.append(Spacer(1, 5))
+
+# Job 1
+story.append(Paragraph("Weblord Infotech Pvt. Ltd. | Full Stack Developer Intern", job_title_style))
+story.append(Paragraph("July 2025 – December 2025", company_date_style))
+bullets = [
+    "Developed and optimized the 'HousingMagic.com' platform, focusing on employment modules and system stability.",
+    "Built responsive User Interfaces (UI) using React.js and Next.js, ensuring a seamless user experience across devices.",
+    "Architected and implemented robust backend APIs using Node.js and Express.js to streamline data flow.",
+    "Managed MySQL database operations, ensuring efficient data retrieval and handling for high-volume transactions.",
+    "Resolved 20+ critical application-level errors and debugged existing functionalities to improve overall system reliability."
+]
+for b in bullets:
+    story.append(Paragraph(f"• {b}", bullet_style))
+
+# Projects
+story.append(Spacer(1, 10))
+story.append(Paragraph("PROJECTS", section_header_style))
+story.append(HRFlowable(width="100%", thickness=0.5, color=colors.grey))
+story.append(Spacer(1, 5))
+
+# Project 1
+story.append(Paragraph("Ride-Sharing Platform (Uber Clone) | MERN Stack", job_title_style))
+bullets_p1 = [
+    "Developed a ride-booking platform featuring real-time tracking and comprehensive admin monitoring.",
+    "Implemented secure user authentication and interactive maps for live location updates."
+]
+for b in bullets_p1:
+    story.append(Paragraph(f"• {b}", bullet_style))
+
+story.append(Spacer(1, 5))
+
+# Project 2
+story.append(Paragraph("Online Food Ordering App (GoFood) | MERN Stack", job_title_style))
+bullets_p2 = [
+    "Built a full-stack food delivery application with secure authentication, cart management, and order tracking.",
+    "Designed an admin dashboard to manage menu items and monitor order statuses in real-time."
+]
+for b in bullets_p2:
+    story.append(Paragraph(f"• {b}", bullet_style))
+
+
+# Technical Skills
+story.append(Spacer(1, 10))
+story.append(Paragraph("TECHNICAL SKILLS", section_header_style))
+story.append(HRFlowable(width="100%", thickness=0.5, color=colors.grey))
+story.append(Spacer(1, 5))
+
+skills_data = [
+    "<b>Languages:</b> Java, JavaScript (ES6+), HTML5, CSS3",
+    "<b>Frontend:</b> React.js, Next.js, Bootstrap",
+    "<b>Backend:</b> Node.js, Express.js",
+    "<b>Databases:</b> MySQL, MongoDB",
+    "<b>Tools:</b> Git, GitHub, VS Code"
+]
+for s in skills_data:
+    story.append(Paragraph(s, bullet_style))
+
+# Education
+story.append(Spacer(1, 10))
+story.append(Paragraph("EDUCATION", section_header_style))
+story.append(HRFlowable(width="100%", thickness=0.5, color=colors.grey))
+story.append(Spacer(1, 5))
+
+story.append(Paragraph("B.Sc. in Information Technology", job_title_style))
+story.append(Paragraph("University of Engineering and Technology | 2021 – 2024", company_date_style))
+story.append(Paragraph("• CGPA: 6.62", bullet_style))
+
+story.append(Spacer(1, 5))
+
+story.append(Paragraph("HSC (XII)", job_title_style))
+story.append(Paragraph("Vidya Vardhini Vidyalaya | 2020 – 2021", company_date_style))
+story.append(Paragraph("• Percentage: 64.71%", bullet_style))
+
+# Certifications
+story.append(Spacer(1, 10))
+story.append(Paragraph("CERTIFICATIONS", section_header_style))
+story.append(HRFlowable(width="100%", thickness=0.5, color=colors.grey))
+story.append(Spacer(1, 5))
+story.append(Paragraph("• SDAC Full Stack Developer (Grade A)", bullet_style))
+
+# Build PDF
+doc.build(story)
